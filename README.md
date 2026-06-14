@@ -45,6 +45,44 @@ python epi_vision_qt.py
 
 ---
 
+## 打包为可执行文件（可选）
+
+### 一键打包
+
+```bash
+pip install pyinstaller
+pyinstaller EPI-Vision.spec
+```
+
+生成的可执行文件位于 `dist/EPI-Vision.exe`。
+
+### 体积优化说明
+
+本工程提供了两个 PyInstaller spec 文件：
+
+| spec 文件 | 用途 | 打包体积 |
+|:---|:---|---:|
+| `EPI-Vision.spec` | **推荐** — 含完整排除列表 | ~100 MB |
+| `epi_vision_qt.spec` | 快速调试（不做排除） | 较大 |
+
+打包体积主要来自 PyQt6 运行时（~120 MB）及 numpy/scipy/matplotlib 等科学计算库。`EPI-Vision.spec` 已排除 PyTorch、TensorFlow、OpenCV 等非必需的大型 ML 库。
+
+如需进一步压缩：
+
+```bash
+# 安装 UPX（自动压缩可执行文件，减小 40-50%）
+winget install upx   # Windows
+# brew install upx   # macOS
+# apt install upx    # Linux
+
+# 重新打包
+pyinstaller EPI-Vision.spec
+```
+
+> **注意**：PyInstaller 会扫描当前 Python 环境的全部已安装包。若环境中存在 PyTorch、TensorFlow 等大包，即使配置了排除列表也可能影响打包速度。建议在干净的虚拟环境中打包。
+
+---
+
 ## 使用流程
 
 1. **导入数据** — 选择 `.xlsx` / `.csv` 光谱文件，填写材料名和入射角度
