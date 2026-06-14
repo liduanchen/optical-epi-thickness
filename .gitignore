@@ -1,0 +1,31 @@
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+
+# 数据库（运行时自动生成）
+*.db
+
+# 构建产物
+build/
+dist/
+*.spec
+
+# Manim 视频输出
+media/
+
+# 渲染缓存
+temp_render_data.json
+
+# 批量分析结果（可重新生成）
+batch_*.csv
+batch_*.png
+
+# 环境文件
+.env
+venv/
+.venv/
